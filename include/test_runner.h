@@ -14,6 +14,8 @@ namespace test_framework {
      */
     struct test_case {
         const char *name; /* Name of the test case. */
+        const char *file_name; /* Name of the file where the test is located. */
+        int lineno; /* Number of the line where the test is located. */
         void (*function)(); /* Function pointer to the test case function. */
     };
 
@@ -41,37 +43,18 @@ namespace test_framework {
             ~test_runner() = delete;
 
             /**
-             * @brief Registers a test case.
-             * 
-             * @param test_case The test case to register.
-             */
-            static void register_test(test_case test_case);
-
-            /**
-             * @brief Registers the case in the test suite with the given name.
+             * @brief Registers the test case in the test suite with the given name.
              * 
              * @param test_suite_name The name of the test suite to register the test case in.
              * @param test_case The test case to register.
              */
-            static void register_test(const char *test_suite_name, test_case test_case);
-
-            /**
-             * @brief Registers a test suite.
-             * 
-             * @param test_suite The name of the test suite.
-             */
-            static test_suite *register_test_suite(const char *test_suite_name);
-
-            /**
-             * @brief Runs all registered test suites.
-             * 
-             */
-            static void run_test_suites();
+            static void register_test_case(const char *test_suite_name, test_case test_case);
 
             /**
              * @brief Runs all registered test cases.
+             * 
              */
-            static void run_tests();
+            static void run_all_tests();
 
         private:
             /**
@@ -82,8 +65,29 @@ namespace test_framework {
              */
             static test_suite *find_test_suite(const char *test_suite_name);
 
+            /**
+             * @brief Registers a test suite.
+             * 
+             * @param test_suite The name of the test suite.
+             */
+            static test_suite *register_test_suite(const char *test_suite_name);
+
+            /**
+             * @brief Runs a specific test suite.
+             * 
+             * @param test_suite The test suite to run.
+             */
+            static void run_test_suite(test_suite test_suite);
+
+            /**
+             * @brief Runs a specific test case.
+             * 
+             * @param test_case The test case to run.
+             */
+            static void run_test_case(test_case test_case);
+
             static std::vector<test_suite> test_suites;
-            static std::vector<test_case> test_cases;
+            static int n_total, n_passed, n_failed;
     };
 }
 
