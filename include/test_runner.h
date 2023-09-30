@@ -52,15 +52,19 @@ namespace test_framework {
 
             /**
              * @brief Runs all registered test cases.
-             * 
              */
             static void run_all_tests();
+
+            /**
+             * @brief Lists all registered test cases.
+             */
+            static void list_all_tests();
 
         private:
             /**
              * @brief Finds the test suite with the given name
              * 
-             * @param name The name of the test suite.
+             * @param test_suite_name The name of the test suite.
              * @return A pointer to the test suite, or nullptr if not found.
              */
             static test_suite *find_test_suite(const char *test_suite_name);
@@ -68,7 +72,7 @@ namespace test_framework {
             /**
              * @brief Registers a test suite.
              * 
-             * @param test_suite The name of the test suite.
+             * @param test_suite_name The name of the test suite.
              */
             static test_suite *register_test_suite(const char *test_suite_name);
 

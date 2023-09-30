@@ -1,6 +1,14 @@
 #include "test_reporter.h"
 
 namespace test_framework {
+    void test_reporter::list(test_suite test_suite) {
+        printf("%s:\n",test_suite.name);
+    }
+
+    void test_reporter::list(test_case test_case) {
+        printf("    %s\n",test_case.name);
+    }
+
     void test_reporter::announce(std::vector<test_suite> test_suites) {
         size_t n_suites = test_suites.size();
         int n_tests = 0;

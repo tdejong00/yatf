@@ -34,6 +34,20 @@ namespace test_framework {
     class test_reporter {
         public:
             /**
+             * @brief Lists the test suite.
+             * 
+             * @param test_suite The test suite to list.
+             */
+            static void list(test_suite test_suite);
+
+            /**
+             * @brief Lists the test case.
+             * 
+             * @param test_case The test case to list.
+             */
+            static void list(test_case test_case);
+
+            /**
              * @brief Announces all test suites.
              * 
              * @param test_suites A list of test suites to announce.

@@ -30,6 +30,16 @@ namespace test_framework {
         test_reporter::report({ n_passed + n_failed, n_passed, n_failed });
     }
 
+    void test_runner::list_all_tests()
+    {
+        for (test_suite test_suite : test_suites) {
+            test_reporter::list(test_suite);
+            for (test_case test_case : test_suite.test_cases) {
+                test_reporter::list(test_case);
+            }
+        }
+    }
+
     test_suite *test_runner::find_test_suite(const char *test_suite_name) {
         for (test_suite &test_suite : test_suites) {
             if (std::strcmp(test_suite_name, test_suite.name) == 0) {
