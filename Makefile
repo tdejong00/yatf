@@ -1,6 +1,11 @@
-# Project variables
-TARGET := test-framework
-VERSION := 0.1.0
+# Target
+TARGET := yatf
+
+# Version
+MAJOR := 0
+MINOR := 1
+PATCH := 0
+VERSION_FLAGS := -DMAJOR=$(MAJOR) -DMINOR=$(MINOR) -DPATCH=$(PATCH)
 
 # Compiler
 CC := g++
@@ -25,7 +30,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(filter-out $(SRC_DIR)
 
 # Compile target
 $(BUILD_DIR)/$(TARGET): $(SRC_DIR)/main.cc $(OBJ_FILES) 
-	$(CC) $(CFLAGS) -I$(INC_DIR) $< -o $@ $(OBJ_FILES) $(SDL_FLAGS)
+	$(CC) $(CFLAGS) -I$(INC_DIR) $(VERSION_FLAGS) $< -o $@ $(OBJ_FILES)
 
 # Compile source files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc
