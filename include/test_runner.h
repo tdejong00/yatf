@@ -56,6 +56,25 @@ namespace test_framework {
             static void run_all_tests();
 
             /**
+             * @brief Runs a specific test suite.
+             * 
+             * @param test_suite The name of the test suite to run.
+             * 
+             * @return Whether the test suite was found.
+             */
+            static bool run_test_suite(const char *test_suite_name);
+
+            /**
+             * @brief Runs a specific test case.
+             * 
+             * @param test_suite_name The name of the test suite.
+             * @param test_case The name of the test case to run.
+             * 
+             * @return Whether the test case was found.
+             */
+            static bool run_test_case(const char *test_suite_name, const char *test_case_name);
+
+            /**
              * @brief Lists all registered test cases.
              */
             static void list_all_tests();
@@ -68,6 +87,15 @@ namespace test_framework {
              * @return A pointer to the test suite, or nullptr if not found.
              */
             static test_suite *find_test_suite(const char *test_suite_name);
+
+            /**
+             * @brief Finds the test case with the given name
+             * 
+             * @param test_suite_name The name of the test suite.
+             * @param test_case_name The name of the test case.
+             * @return A pointer to the test case, or nullptr if not found.
+             */
+            static test_case *find_test_case(const char *test_suite_name, const char *test_case_name);
 
             /**
              * @brief Registers a test suite.
