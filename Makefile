@@ -9,7 +9,7 @@ VERSION_FLAGS := -DMAJOR=$(MAJOR) -DMINOR=$(MINOR) -DPATCH=$(PATCH)
 
 # Compiler
 CC := g++
-CFLAGS := -Wall -Wextra -std=c++17
+CFLAGS := -Wall -Wextra -Wpedantic -std=c++17
 
 # Directories
 BUILD_DIR := .build
