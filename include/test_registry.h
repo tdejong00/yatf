@@ -4,6 +4,16 @@
 #include <vector>
 #include <ostream>
 
+/**
+ * @brief The root namespace for YATF.
+ *
+ * This namespace contains all the components and utilities necessary for creating,
+ * registering, and running tests, as well as reporting their results. The framework
+ * includes an assertion library, a static test registry for compile-time test
+ * registration, a test runner for executing registered tests at runtime, and a
+ * test reporter for displaying test outcomes. Additionally, it provides macros for
+ * easily registering tests and performing assertions within test cases.
+ */
 namespace test_framework {
     /**
      * @brief A test case within a test suite.

@@ -3,57 +3,20 @@
 
 #include <vector>
 
-/**
- * @brief Testing framework containing registering and running tests cases or test suites.
- */
+#include "test_reporter.h"
+
 namespace test_framework {
     /**
-     * @brief A test case within a test suite.
-     * 
-     * Consists of a human-readable name and a function pointer to the actual test code.
-     */
-    struct test_case {
-        const char *name; /* Name of the test case. */
-        const char *file_name; /* Name of the file where the test is located. */
-        int lineno; /* Number of the line where the test is located. */
-        void (*function)(); /* Function pointer to the test case function. */
-    };
-
-    /**
-     * @brief A container for grouping multiple test cases.
-     * 
-     * Consists of a human-readable name and a collection of test cases.
-     */
-    struct test_suite {
-        const char *name; /* Name of the test suite. */
-        std::vector<test_case> test_cases; /* Collection of test cases within the test suite. */
-    };
-
-    /**
-     * @brief Registers and runs test cases or test suites.
-     * 
-     * Provides a framework for organizing and executing test cases within a testing environment. 
-     * It allows you to register individual test cases and then execute them as a group. This class 
-     * follows a static design pattern, meaning you don't need to create instances of it; you interact 
-     * with it using static methods.
+     * @brief Runs the test cases of test suites and reports the results.
      */
     class test_runner {
         public:
-            test_runner() = delete;
-            ~test_runner() = delete;
-
             /**
-             * @brief Registers the test case in the test suite with the given name.
+             * @brief Constructs a new instance of the test runner.
              * 
-             * @param test_suite_name The name of the test suite to register the test case in.
-             * @param test_case The test case to register.
+             * @param reporter The test reporter to use for reporting on test cases.
              */
-            static void register_test_case(const char *test_suite_name, test_case test_case);
-
-            /**
-             * @brief Runs all registered test cases.
-             */
-            static void run_all_tests();
+            test_runner(test_reporter reporter);
 
             /**
              * @brief Runs a specific test suite.
@@ -62,64 +25,35 @@ namespace test_framework {
              * 
              * @return Whether the test suite was found.
              */
-            static bool run_test_suite(const char *test_suite_name);
+            bool run_test_suite(const char *suite_name);
 
             /**
-             * @brief Runs a specific test case.
-             * 
-             * @param test_suite_name The name of the test suite.
-             * @param test_case The name of the test case to run.
-             * 
-             * @return Whether the test case was found.
+             * @brief Runs all registered test cases.
              */
-            static bool run_test_case(const char *test_suite_name, const char *test_case_name);
+            void run_all_tests();
 
             /**
              * @brief Lists all registered test cases.
              */
-            static void list_all_tests();
+            void list_all_tests();
 
         private:
-            /**
-             * @brief Finds the test suite with the given name
-             * 
-             * @param test_suite_name The name of the test suite.
-             * @return A pointer to the test suite, or nullptr if not found.
-             */
-            static test_suite *find_test_suite(const char *test_suite_name);
-
-            /**
-             * @brief Finds the test case with the given name
-             * 
-             * @param test_suite_name The name of the test suite.
-             * @param test_case_name The name of the test case.
-             * @return A pointer to the test case, or nullptr if not found.
-             */
-            static test_case *find_test_case(const char *test_suite_name, const char *test_case_name);
-
-            /**
-             * @brief Registers a test suite.
-             * 
-             * @param test_suite_name The name of the test suite.
-             */
-            static test_suite *register_test_suite(const char *test_suite_name);
-
             /**
              * @brief Runs a specific test suite.
              * 
              * @param test_suite The test suite to run.
              */
-            static void run_test_suite(test_suite test_suite);
+            void run_test_suite(test_suite test_suite);
 
             /**
              * @brief Runs a specific test case.
              * 
              * @param test_case The test case to run.
              */
-            static void run_test_case(test_case test_case);
+            void run_test_case(test_case test_case);
 
-            static std::vector<test_suite> test_suites;
-            static int n_total, n_passed, n_failed;
+            test_reporter reporter;
+            test_statistics statistics;
     };
 }
 

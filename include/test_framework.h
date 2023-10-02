@@ -7,8 +7,6 @@
 /**
  * @brief TODO
  */
-namespace test_framework {}
-
 #define TEST_CASE(name) \
     class __TEST__CASE__##name##__ { \
         public: \

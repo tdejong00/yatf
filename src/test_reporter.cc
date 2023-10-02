@@ -1,56 +1,116 @@
+#include <iostream>
+#include <iomanip>
+
 #include "test_reporter.h"
 
 namespace test_framework {
+    const constexpr char *RESET_COLOR = "\033[0;39m";
+    const constexpr char *RED_COLOR = "\033[31m";
+    const constexpr char *GREEN_COLOR = "\033[32m";
+    const constexpr char *ORANGE_COLOR = "\033[33m";
+
+    test_reporter::test_reporter(report_options options) : options(options) { }
+
+    std::ostream &operator<<(std::ostream &os, test_result test_result)
+    {
+        switch (test_result) {
+            case FAILED: return os << RED_COLOR << "FAIL: " << RESET_COLOR;
+            case PASSED: return os << GREEN_COLOR << "OK: " << RESET_COLOR;
+            default: return os << ORANGE_COLOR;
+        }
+    }
+
+    test_statistics operator-(test_statistics first, test_statistics second) {
+        return {
+            first.total_count - second.total_count, 
+            first.passed_count - second.passed_count, 
+            first.failed_count - second.failed_count
+        };
+    }
+
+    std::ostream &operator<<(std::ostream &os, test_statistics test_statistics) {
+        return os << (test_statistics.failed_count > 0 ? RED_COLOR : GREEN_COLOR) 
+            << test_statistics.passed_count << (test_statistics.passed_count == 1 ? " test " : " tests ") << "passed, "
+            << test_statistics.failed_count << (test_statistics.failed_count == 1 ? " test " : " tests ") << "failed";
+    }
+
+    std::ostream &operator<<(std::ostream &os, std::chrono::duration<double> duration) {
+        return os << "(" << std::fixed << std::setprecision(6) << duration.count() * 1000 << " ms)";
+    }
+
     void test_reporter::list(test_suite test_suite) {
-        printf("%s:\n",test_suite.name);
+        std::cout << test_suite << std::endl;
     }
 
     void test_reporter::list(test_case test_case) {
-        printf("    %s\n",test_case.name);
+        std::cout << test_case << std::endl;
     }
 
-    void test_reporter::announce(std::vector<test_suite> test_suites) {
-        size_t n_suites = test_suites.size();
-        int n_tests = 0;
-        for (test_suite test_suite : test_suites) {
-            n_tests += test_suite.test_cases.size();
+    void test_reporter::announce_test_module(std::vector<test_suite> test_suites) {
+        if (options.is_verbose) {
+            size_t n_suites = test_suites.size();
+            size_t n_tests = 0;
+            for (test_suite test_suite : test_suites) {
+                n_tests += test_suite.test_cases.size();
+            }
+
+            std::cout << UNKNOWN << "Running " << n_tests << " "
+                << (n_tests == 1 ? "test" : "tests") << " from " << n_suites << " "
+                << (n_suites == 1 ? "suite" : "suites") << "..." << std::endl;
         }
-        log(unknown, "Running %ld tests from %ld files...", n_tests, n_suites);
     }
 
-    void test_reporter::announce(test_suite test_suite) {
-        log(unknown, "Running %ld tests from %s:", test_suite.test_cases.size(), test_suite.name);
+    void test_reporter::announce_test_suite(test_suite test_suite) {
+        if (options.is_verbose) {
+            size_t n_tests = test_suite.test_cases.size();
+            std::cout << UNKNOWN << "Running " << n_tests << " "
+                << (n_tests == 1 ? "test" : "tests") << " from " << test_suite << std::endl;
+        }
     }
 
-    void test_reporter::report(test_case test_case) {
-        log(passed, "%s:%d:%s", test_case.file_name, test_case.lineno, test_case.name);
-    }
-
-    void test_reporter::report(test_case test_case, const char *failure_reason) {
-        log(failed, "%s:%d:%s -> %s", test_case.file_name, test_case.lineno, test_case.name, failure_reason);
-    }
-
-    void test_reporter::report(test_statistics test_statistics) {
-        log(unknown, "%d tests passed, %d tests failed", test_statistics.n_passed, test_statistics.n_failed);
-    }
-
-    std::string test_reporter::to_string(test_result test_result) {
-        static const std::string reset_color = "\033[0;39m";
-        static const std::string red_color = "\033[31m";
-        static const std::string green_color = "\033[32m";
+    void test_reporter::report_test_case(test_case test_case, test_result test_result, std::chrono::duration<double> duration, const char *failure_reason) {
         switch (test_result) {
-            case test_result::failed: return red_color + "[Failed]" + reset_color;
-            case test_result::passed: return green_color + "[Passed]" + reset_color;
-            default: return green_color + "[------]" + reset_color;
+            case PASSED:
+                if (options.show_passed_tests) {
+                    std::cout << PASSED << test_case;
+                    if (options.show_execution_times) {
+                        std::cout << " " << duration;
+                    }
+                    std::cout << std::endl;
+                }
+                break;
+            case FAILED:
+                std::cerr << FAILED << test_case;
+                if (options.show_execution_times) {
+                    std::cout << " " << duration;
+                }
+                std::cout << " --> " << RED_COLOR << failure_reason << RESET_COLOR << std::endl;
+                break;
+            default:
+                std::cerr << RED_COLOR << "error: unknown test result" << RESET_COLOR << std::endl;
+                break;
         }
     }
 
-    void test_reporter::log(test_result test_result, const char *format, ...) {
-        va_list args;
-        va_start(args, format);
-        printf("%s: ", to_string(test_result).c_str());
-        vprintf(format, args);
-        printf("\n");
-        va_end(args);
+    void test_reporter::report_test_suite(test_suite test_suite, test_statistics test_statistics, std::chrono::duration<double> duration) {
+        if (options.is_verbose) {
+            size_t n_tests = test_suite.test_cases.size();
+            std::cout << UNKNOWN << "Ran " << n_tests << " " 
+                << (n_tests == 1 ? "test" : "tests") << " from " << test_suite << " " << test_statistics;
+            if (options.show_execution_times) {
+                std::cout << " " << duration;
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void test_reporter::report_test_module(test_statistics test_statistics, std::chrono::duration<double> duration) {
+        if (options.is_verbose) {
+            std::cout << UNKNOWN << test_statistics;
+            if (options.show_execution_times) {
+                std::cout << " " << duration;
+            }
+            std::cout << std::endl;
+        }
     }
 }

@@ -1,37 +1,24 @@
-#include "test_runner.h"
-#include "test_reporter.h"
-#include "test_assert.h"
-
+#include <iostream>
 #include <cstring>
+#include <chrono>
+
+#include "test_runner.h"
 
 namespace test_framework {
-    std::vector<test_suite> test_runner::test_suites;
-    int test_runner::n_total, test_runner::n_passed, test_runner::n_failed;
-
-    void test_runner::register_test_case(const char *test_suite_name, test_case test_case) {
-        test_suite *test_suite = find_test_suite(test_suite_name);
-        if (test_suite == nullptr) {
-            test_suite = register_test_suite(test_suite_name);
-        }
-        test_suite->test_cases.push_back(test_case);
-        n_total++;
+    /**
+     * @brief Calculates the elapsed time since the given time point.
+     * 
+     * @param time_point The time point for which to calculate to elapsed time.
+     * @return The elapsed time in seconds.
+     */
+    inline std::chrono::duration<double> elapsed_time(std::chrono::high_resolution_clock::time_point time_point) {
+        return std::chrono::high_resolution_clock::now() - time_point;
     }
 
-    test_suite *test_runner::register_test_suite(const char *test_suite_name) {
-        test_suites.push_back({ test_suite_name, {}});
-        return &test_suites.back();
-    }
-
-    void test_runner::run_all_tests() {
-        test_reporter::announce(test_suites);
-        for (test_suite test_suite : test_suites) {
-            run_test_suite(test_suite);
-        }
-        test_reporter::report({ n_passed + n_failed, n_passed, n_failed });
-    }
+    test_runner::test_runner(test_reporter reporter) : reporter(reporter), statistics({0,0,0}) {}
 
     bool test_runner::run_test_suite(const char *test_suite_name) {
-        test_suite *test_suite = find_test_suite(test_suite_name);
+        test_suite *test_suite = test_registry::find_test_suite(test_suite_name);
         if (test_suite == nullptr) {
             return false;
         }
@@ -39,63 +26,56 @@ namespace test_framework {
         return true;
     }
 
-    bool test_runner::run_test_case(const char *test_suite_name, const char *test_case_name) {
-        test_case *test_case = find_test_case(test_suite_name, test_case_name);
-        if (test_case == nullptr) {
-            return false;
+    void test_runner::run_all_tests() {
+        auto time_point = std::chrono::high_resolution_clock::now();
+
+        reporter.announce_test_module(test_registry::get_test_suites());
+
+        for (test_suite test_suite : test_registry::get_test_suites()) {
+            run_test_suite(test_suite);
         }
-        run_test_case(*test_case);
-        return true;
+
+        reporter.report_test_module(statistics, elapsed_time(time_point));
     }
 
     void test_runner::list_all_tests()
     {
-        for (test_suite test_suite : test_suites) {
-            test_reporter::list(test_suite);
+        for (test_suite test_suite : test_registry::get_test_suites()) {
+            reporter.list(test_suite);
             for (test_case test_case : test_suite.test_cases) {
-                test_reporter::list(test_case);
+                reporter.list(test_case);
             }
         }
-    }
-
-    test_suite *test_runner::find_test_suite(const char *test_suite_name) {
-        for (test_suite &test_suite : test_suites) {
-            if (std::strcmp(test_suite_name, test_suite.name) == 0) {
-                return &test_suite;
-            }
-        }
-        return nullptr;
-    }
-
-    test_case *test_runner::find_test_case(const char *test_suite_name, const char *test_case_name) {
-        test_suite *test_suite = find_test_suite(test_suite_name);
-        if (test_suite != nullptr) {
-            for (test_case &test_case : test_suite->test_cases) {
-                if (std::strcmp(test_case_name, test_case.name) == 0) {
-                    return &test_case;
-                }
-            }
-        }
-        return nullptr;
     }
 
     void test_runner::run_test_suite(test_suite test_suite) {
-        test_reporter::announce(test_suite);
+        auto time_point = std::chrono::high_resolution_clock::now();
+        
+        reporter.announce_test_suite(test_suite);
+        
+        test_statistics before = statistics;
         for (test_case t : test_suite.test_cases) {
             run_test_case(t);
         }
+        test_statistics after = statistics;
+
+        reporter.report_test_suite(test_suite, after - before, elapsed_time(time_point));
     }
 
     void test_runner::run_test_case(test_case test_case) {
+        auto time_point = std::chrono::high_resolution_clock::now();
+        
         try {
             test_case.function();
         }
         catch (assertion_error &e) {
-            n_failed++;
-            test_reporter::report(test_case, e.what());
+            statistics.failed_count++;
+            statistics.total_count++;
+            reporter.report_test_case(test_case, FAILED, elapsed_time(time_point), e.what());
             return;
         }
-        n_passed++;
-        test_reporter::report(test_case);
+        statistics.passed_count++;
+        statistics.total_count++;
+        reporter.report_test_case(test_case, PASSED, elapsed_time(time_point));
     }
 }
