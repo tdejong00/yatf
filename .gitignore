@@ -1,3 +1,12 @@
-.build
+# Object and library files
+*.o
+*.so
+*.so.*
+*.a
+
+# Build directories
+/bin
+/lib
+
+# VS Code
 /.vscode
-*_test.cc
