@@ -1,12 +1,10 @@
 # Version
 MAJOR := 0
 MINOR := 1
-PATCH := 0
-VERSION_FLAGS := -DMAJOR=$(MAJOR) -DMINOR=$(MINOR) -DPATCH=$(PATCH)
 
 # Target
 PROJECT_NAME := yatf
-LIB_NAME := lib$(PROJECT_NAME).so.$(MAJOR).$(MINOR)
+LIB_NAME := lib$(PROJECT_NAME).so
 
 # Compiler
 CC := g++
@@ -41,7 +39,7 @@ $(LIB_DIR)/$(LIB_NAME): $(OBJ_FILES)
 
 # Compile target
 $(BIN_DIR)/$(PROJECT_NAME): $(SRC_DIR)/main.cc $(OBJ_FILES) 
-	$(CC) $(CFLAGS) -I$(INC_DIR) $(VERSION_FLAGS) $< -o $@ $(OBJ_FILES)
+	$(CC) $(CFLAGS) -I$(INC_DIR) $< -o $@ $(OBJ_FILES)
 
 # Compile source files
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.cc

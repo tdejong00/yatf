@@ -2,7 +2,7 @@
 
 #include "test_registry.h"
 
-namespace test_framework {
+namespace yatf {
     std::vector<test_suite> test_registry::test_suites;
     std::vector<test_case> test_registry::test_cases;
 
@@ -27,8 +27,7 @@ namespace test_framework {
         return &test_suites.back();
     }
 
-    void test_registry::register_test_case(const char *test_suite_name, test_case test_case)
-    {
+    void test_registry::register_test_case(const char *test_suite_name, test_case test_case) {
         test_suite *test_suite = find_test_suite(test_suite_name);
         if (test_suite == nullptr) {
             test_suite = register_test_suite(test_suite_name);

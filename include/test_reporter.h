@@ -1,13 +1,13 @@
-#ifndef __TEST_REPORTER_H__
-#define __TEST_REPORTER_H__
+#ifndef __YATF_TEST_REPORTER_H__
+#define __YATF_TEST_REPORTER_H__
 
 #include <cstdarg>
 #include <vector>
 #include <chrono>
 
-#include "test_framework.h"
+#include "test_registry.h"
 
-namespace test_framework {
+namespace yatf {
     /**
      * @brief Represents the result of a test case.
      */

@@ -3,7 +3,7 @@
 
 #include "test_reporter.h"
 
-namespace test_framework {
+namespace yatf {
     const constexpr char *RESET_COLOR = "\033[0;39m";
     const constexpr char *RED_COLOR = "\033[31m";
     const constexpr char *GREEN_COLOR = "\033[32m";

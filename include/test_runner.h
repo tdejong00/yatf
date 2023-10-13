@@ -1,11 +1,12 @@
-#ifndef __TEST_RUNNER_H__
-#define __TEST_RUNNER_H__
+#ifndef __YATF_TEST_RUNNER_H__
+#define __YATF_TEST_RUNNER_H__
 
 #include <vector>
 
 #include "test_reporter.h"
+#include "assert.h"
 
-namespace test_framework {
+namespace yatf {
     /**
      * @brief Runs the test cases of test suites and reports the results.
      */

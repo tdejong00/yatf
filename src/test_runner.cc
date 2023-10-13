@@ -4,7 +4,7 @@
 
 #include "test_runner.h"
 
-namespace test_framework {
+namespace yatf {
     /**
      * @brief Calculates the elapsed time since the given time point.
      * 
@@ -68,7 +68,7 @@ namespace test_framework {
         try {
             test_case.function();
         }
-        catch (assertion_error &e) {
+        catch (const assert::assertion_error &e) {
             statistics.failed_count++;
             statistics.total_count++;
             reporter.report_test_case(test_case, FAILED, elapsed_time(time_point), e.what());
