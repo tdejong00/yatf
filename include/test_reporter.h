@@ -77,7 +77,12 @@ namespace yatf {
     class test_reporter {
         public:
             /**
-             * @brief Constructs a new instance of the test reporter.
+             * @brief Constructs a new instance of the test reporter using the default report options.
+             */
+            test_reporter();
+
+            /**
+             * @brief Constructs a new instance of the test reporter using the given report options.
              * 
              * @param options Options for controlling the announcements and reports.
              */

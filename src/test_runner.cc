@@ -15,7 +15,9 @@ namespace yatf {
         return std::chrono::high_resolution_clock::now() - time_point;
     }
 
-    test_runner::test_runner(test_reporter reporter) : reporter(reporter), statistics({0,0,0}) {}
+    test_runner::test_runner() : reporter(test_reporter()), statistics({0, 0, 0}) {}
+
+    test_runner::test_runner(report_options options) : reporter(test_reporter(options)), statistics({0, 0, 0}) {}
 
     bool test_runner::run_test_suite(const char *test_suite_name) {
         test_suite *test_suite = test_registry::find_test_suite(test_suite_name);

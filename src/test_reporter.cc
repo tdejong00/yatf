@@ -9,7 +9,9 @@ namespace yatf {
     const constexpr char *GREEN_COLOR = "\033[32m";
     const constexpr char *ORANGE_COLOR = "\033[33m";
 
-    test_reporter::test_reporter(report_options options) : options(options) { }
+    test_reporter::test_reporter() : options({ false, false, true }) {}
+
+    test_reporter::test_reporter(report_options options) : options(options) {}
 
     std::ostream &operator<<(std::ostream &os, test_result test_result)
     {

@@ -8,16 +8,21 @@
 
 namespace yatf {
     /**
-     * @brief Runs the test cases of test suites and reports the results.
+     * @brief Runs the test cases of test suites and reports the results using a test reporter.
      */
     class test_runner {
         public:
             /**
-             * @brief Constructs a new instance of the test runner.
-             * 
-             * @param reporter The test reporter to use for reporting on test cases.
+             * @brief Constructs a new instance of the test runner using the default report options.
              */
-            test_runner(test_reporter reporter);
+            test_runner();
+
+            /**
+             * @brief Constructs a new instance of the test runner using the given report options.
+             * 
+             * @param options Options for controlling the announcements and reports.
+             */
+            test_runner(report_options options);
 
             /**
              * @brief Runs a specific test suite.
