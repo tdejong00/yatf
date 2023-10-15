@@ -3,7 +3,7 @@
 #include <iostream>
 #include <getopt.h>
 
-void yatf::print_help() {
+void print_help() {
     std::cout << "YATF: Yet Another Testing Framework" << std::endl << std::endl;
     std::cout << "Usage: yatf [OPTIONS]... [FILE]..." << std::endl << std::endl;
     std::cout << "General options:" << std::endl;
@@ -15,7 +15,7 @@ void yatf::print_help() {
     std::cout << "    -f --failed-only    Disable test reports for passed tests." << std::endl;
 }
 
-int yatf::init(int argc, char **argv){
+int main(int argc, char **argv) {
     /* Define command line options */
     const char *short_options = "hlvef";
     struct option long_options[] = { 
@@ -45,8 +45,7 @@ int yatf::init(int argc, char **argv){
         }
     }
 
-    yatf::test_reporter reporter(options);
-    yatf::test_runner runner(reporter);
+    yatf::test_runner runner(options);
 
     /* Show help display */
     if (show_help) {
@@ -65,6 +64,7 @@ int yatf::init(int argc, char **argv){
         while (optind < argc) {
             if (!runner.run_test_suite(argv[optind++])) {
                 std::cerr << argv[0] << ": test suite '" << argv[optind - 1] << "' was not found" << std::endl;
+                return EXIT_FAILURE;
             }
         }
     }

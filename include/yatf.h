@@ -11,22 +11,7 @@
  * test reporter for displaying test outcomes. Additionally, it provides macros for
  * easily registering tests and performing assertions within test cases.
  */
-namespace yatf {
-    /**
-     * @brief Prints the help display.
-     */
-    void print_help();
-    
-    /**
-     * @brief Initializes the framework with the given command
-     * line arguments and runs the tests using those options.
-     * 
-     * @param argc The amount of command line arguments.
-     * @param argv The command line arguments.
-     * @return The exit code.
-     */
-    int init(int argc, char **argv);
-}
+namespace yatf {}
 
 #include "test_registry.h"
 #include "test_reporter.h"
