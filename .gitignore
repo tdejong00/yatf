@@ -5,8 +5,8 @@
 *.a
 
 # Build directories
-/bin
-/lib
+bin/
+lib/
 
 # VS Code
-/.vscode
+.vscode/
