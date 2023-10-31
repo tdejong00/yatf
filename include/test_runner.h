@@ -41,7 +41,7 @@ namespace yatf {
             /**
              * @brief Lists all registered test cases.
              */
-            void list_all_tests();
+            static void list_all_tests();
 
         private:
             /**

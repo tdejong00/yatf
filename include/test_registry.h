@@ -19,11 +19,11 @@ namespace yatf {
         /**
          * @brief Streams a test case to an output stream.
          * 
-         * @param os The output stream to stream to.
-         * @param tc The test case to stream.
+         * @param stream The output stream to stream to.
+         * @param test_case The test case to stream.
          * @return A reference to the output stream after streaming the test case.
          */
-        friend std::ostream &operator<<(std::ostream &os, test_case test_case);
+        friend std::ostream &operator<<(std::ostream &stream, test_case test_case);
     };
     
     /**
@@ -38,11 +38,11 @@ namespace yatf {
         /**
          * @brief Streams a test suite to an output stream.
          * 
-         * @param os The output stream to stream to.
+         * @param stream The output stream to stream to.
          * @param test_suite The test suite to stream.
          * @return A reference to the output stream after streaming the test suite.
          */
-        friend std::ostream &operator<<(std::ostream &os, test_suite test_suite);
+        friend std::ostream &operator<<(std::ostream &stream, test_suite test_suite);
     };
 
     /**
@@ -55,14 +55,14 @@ namespace yatf {
              * 
              * @return A vector containing all registered test suites.
              */
-            static const std::vector<test_suite> get_test_suites();
+            static std::vector<test_suite> get_test_suites();
 
             /**
              * @brief Retrieves all registered test cases.
              * 
              * @return A vector containing all registered test cases.
              */
-            static const std::vector<test_case> get_test_cases();
+            static std::vector<test_case> get_test_cases();
 
             /**
              * @brief Registers a test suite.

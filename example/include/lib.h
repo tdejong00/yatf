@@ -4,14 +4,14 @@
 /**
  * @brief Adds two numbers.
  * 
- * @param a The first number.
- * @param b The second number.
+ * @param first The first number.
+ * @param second The second number.
  * 
  * @return The result of the addition of the two numbers.
  * 
  * @exception `std::overflow_error` when the addition would result in an overflow
  * @exception `std::underflow_error` when the addition would result in an underflow
  */
-int add(int a, int b);
+int add(int first, int second);
 
 #endif

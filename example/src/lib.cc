@@ -3,12 +3,12 @@
 
 #include "lib.h"
 
-int add(int a, int b) {
-    if (a >= 0 && b > (INT_MAX - a)) {
-        throw std::underflow_error("Adding " + std::to_string(a) + " and " + std::to_string(b) + " would result in an overflow");
+int add(int first, int second) {
+    if (first >= 0 && second > (INT_MAX - first)) {
+        throw std::underflow_error("Adding " + std::to_string(first) + " and " + std::to_string(second) + " would result in an overflow");
     }
-    else if (a < 0 && b < (INT_MIN - a)) {
-        throw std::underflow_error("Adding " + std::to_string(a) + " and " + std::to_string(b) + " would result in an underflow");
+    if (first < 0 && second < (INT_MIN - first)) {
+        throw std::underflow_error("Adding " + std::to_string(first) + " and " + std::to_string(second) + " would result in an underflow");
     }
-    return a + b;
+    return first + second;
 }

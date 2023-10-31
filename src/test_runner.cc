@@ -15,7 +15,7 @@ namespace yatf {
         return std::chrono::high_resolution_clock::now() - time_point;
     }
 
-    test_runner::test_runner() : reporter(test_reporter()), statistics({0, 0, 0}) {}
+    test_runner::test_runner() : statistics({0, 0, 0}) {}
 
     test_runner::test_runner(report_options options) : reporter(test_reporter(options)), statistics({0, 0, 0}) {}
 
@@ -33,7 +33,7 @@ namespace yatf {
 
         reporter.announce_test_module(test_registry::get_test_suites());
 
-        for (test_suite test_suite : test_registry::get_test_suites()) {
+        for (const test_suite &test_suite : test_registry::get_test_suites()) {
             run_test_suite(test_suite);
         }
 
@@ -42,10 +42,10 @@ namespace yatf {
 
     void test_runner::list_all_tests()
     {
-        for (test_suite test_suite : test_registry::get_test_suites()) {
-            reporter.list(test_suite);
-            for (test_case test_case : test_suite.test_cases) {
-                reporter.list(test_case);
+        for (const test_suite &test_suite : test_registry::get_test_suites()) {
+            test_reporter::list(test_suite);
+            for (const test_case &test_case : test_suite.test_cases) {
+                test_reporter::list(test_case);
             }
         }
     }
@@ -55,11 +55,11 @@ namespace yatf {
         
         reporter.announce_test_suite(test_suite);
         
-        test_statistics before = statistics;
-        for (test_case t : test_suite.test_cases) {
-            run_test_case(t);
+        const test_statistics before = statistics;
+        for (const test_case &test_case : test_suite.test_cases) {
+            run_test_case(test_case);
         }
-        test_statistics after = statistics;
+        const test_statistics after = statistics;
 
         reporter.report_test_suite(test_suite, after - before, elapsed_time(time_point));
     }

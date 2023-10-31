@@ -6,19 +6,19 @@ namespace yatf {
     std::vector<test_suite> test_registry::test_suites;
     std::vector<test_case> test_registry::test_cases;
 
-    std::ostream &operator<<(std::ostream &os, test_case test_case) {
-        return os << test_case.file_name << ":" << test_case.name;
+    std::ostream &operator<<(std::ostream &stream, test_case test_case) {
+        return stream << test_case.file_name << ":" << test_case.name;
     }
 
-    std::ostream &operator<<(std::ostream &os, test_suite test_suite) {
-        return os << test_suite.name << ":";
+    std::ostream &operator<<(std::ostream &stream, test_suite test_suite) {
+        return stream << test_suite.name << ":";
     }
 
-    const std::vector<test_suite> test_registry::get_test_suites() {
+    std::vector<test_suite> test_registry::get_test_suites() {
         return test_suites;
     }
 
-    const std::vector<test_case> test_registry::get_test_cases() {
+    std::vector<test_case> test_registry::get_test_cases() {
         return test_cases;
     }
 

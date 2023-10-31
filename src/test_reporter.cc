@@ -13,12 +13,11 @@ namespace yatf {
 
     test_reporter::test_reporter(report_options options) : options(options) {}
 
-    std::ostream &operator<<(std::ostream &os, test_result test_result)
-    {
+    std::ostream &operator<<(std::ostream &stream, test_result test_result) {
         switch (test_result) {
-            case FAILED: return os << RED_COLOR << "FAIL: " << RESET_COLOR;
-            case PASSED: return os << GREEN_COLOR << "OK: " << RESET_COLOR;
-            default: return os << ORANGE_COLOR;
+            case FAILED: return stream << RED_COLOR << "FAIL: " << RESET_COLOR;
+            case PASSED: return stream << GREEN_COLOR << "OK: " << RESET_COLOR;
+            default: return stream << ORANGE_COLOR;
         }
     }
 
@@ -30,14 +29,14 @@ namespace yatf {
         };
     }
 
-    std::ostream &operator<<(std::ostream &os, test_statistics test_statistics) {
-        return os << (test_statistics.failed_count > 0 ? RED_COLOR : GREEN_COLOR) 
+    std::ostream &operator<<(std::ostream &stream, test_statistics test_statistics) {
+        return stream << (test_statistics.failed_count > 0 ? RED_COLOR : GREEN_COLOR)
             << test_statistics.passed_count << (test_statistics.passed_count == 1 ? " test " : " tests ") << "passed, "
             << test_statistics.failed_count << (test_statistics.failed_count == 1 ? " test " : " tests ") << "failed";
     }
 
-    std::ostream &operator<<(std::ostream &os, std::chrono::duration<double> duration) {
-        return os << "(" << std::fixed << std::setprecision(6) << duration.count() * 1000 << " ms)";
+    std::ostream &operator<<(std::ostream &stream, std::chrono::duration<double> duration) {
+        return stream << "(" << std::fixed << std::setprecision(6) << duration.count() * 1000 << " ms)";
     }
 
     void test_reporter::list(test_suite test_suite) {
@@ -48,11 +47,11 @@ namespace yatf {
         std::cout << test_case << std::endl;
     }
 
-    void test_reporter::announce_test_module(std::vector<test_suite> test_suites) {
+    void test_reporter::announce_test_module(std::vector<test_suite> test_suites) const {
         if (options.is_verbose) {
-            size_t n_suites = test_suites.size();
+            const size_t n_suites = test_suites.size();
             size_t n_tests = 0;
-            for (test_suite test_suite : test_suites) {
+            for (const test_suite &test_suite : test_suites) {
                 n_tests += test_suite.test_cases.size();
             }
 
@@ -62,15 +61,15 @@ namespace yatf {
         }
     }
 
-    void test_reporter::announce_test_suite(test_suite test_suite) {
+    void test_reporter::announce_test_suite(test_suite test_suite) const {
         if (options.is_verbose) {
-            size_t n_tests = test_suite.test_cases.size();
+            const size_t n_tests = test_suite.test_cases.size();
             std::cout << UNKNOWN << "Running " << n_tests << " "
                 << (n_tests == 1 ? "test" : "tests") << " from " << test_suite << std::endl;
         }
     }
 
-    void test_reporter::report_test_case(test_case test_case, test_result test_result, std::chrono::duration<double> duration, const char *failure_reason) {
+    void test_reporter::report_test_case(test_case test_case, test_result test_result, std::chrono::duration<double> duration, const char *failure_reason) const {
         switch (test_result) {
             case PASSED:
                 if (options.show_passed_tests) {
@@ -84,9 +83,9 @@ namespace yatf {
             case FAILED:
                 std::cerr << FAILED << test_case;
                 if (options.show_execution_times) {
-                    std::cout << " " << duration;
+                    std::cerr << " " << duration;
                 }
-                std::cout << " --> " << RED_COLOR << failure_reason << RESET_COLOR << std::endl;
+                std::cerr << " --> " << RED_COLOR << failure_reason << RESET_COLOR << std::endl;
                 break;
             default:
                 std::cerr << RED_COLOR << "error: unknown test result" << RESET_COLOR << std::endl;
@@ -94,9 +93,9 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_suite(test_suite test_suite, test_statistics test_statistics, std::chrono::duration<double> duration) {
+    void test_reporter::report_test_suite(test_suite test_suite, test_statistics test_statistics, std::chrono::duration<double> duration) const {
         if (options.is_verbose) {
-            size_t n_tests = test_suite.test_cases.size();
+            const size_t n_tests = test_suite.test_cases.size();
             std::cout << UNKNOWN << "Ran " << n_tests << " " 
                 << (n_tests == 1 ? "test" : "tests") << " from " << test_suite << " " << test_statistics;
             if (options.show_execution_times) {
@@ -106,13 +105,11 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_module(test_statistics test_statistics, std::chrono::duration<double> duration) {
-        if (options.is_verbose) {
-            std::cout << UNKNOWN << test_statistics;
-            if (options.show_execution_times) {
-                std::cout << " " << duration;
-            }
-            std::cout << std::endl;
+    void test_reporter::report_test_module(test_statistics test_statistics, std::chrono::duration<double> duration) const {
+        std::cout << UNKNOWN << test_statistics;
+        if (options.show_execution_times) {
+            std::cout << " " << duration;
         }
+        std::cout << std::endl;
     }
 }

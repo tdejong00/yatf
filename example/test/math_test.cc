@@ -3,10 +3,9 @@
 #include "lib.h"
 
 TEST_CASE(add_test) {
-    int a = 5, b = 6;
-    int expected = 11;
+    const int expected = 11;
 
-    int actual = add(a, b);
+    const int actual = add(5, 6);
 
     yatf::assert::is_equal(actual, expected);
 }

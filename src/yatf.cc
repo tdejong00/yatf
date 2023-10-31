@@ -19,12 +19,12 @@ int main(int argc, char **argv) {
     /* Define command line options */
     const char *short_options = "hlvef";
     struct option long_options[] = { 
-        { "help", no_argument, 0, 'h' },
-        { "list", no_argument, 0, 'l' },
-        { "verbose", no_argument, 0, 'v' },
-        { "execution-time", no_argument, 0, 'e' },
-        { "failed-only", no_argument, 0, 'f' },
-        { 0, 0, 0, 0 }
+        { "help", no_argument, nullptr, 'h' },
+        { "list", no_argument, nullptr, 'l' },
+        { "verbose", no_argument, nullptr, 'v' },
+        { "execution-time", no_argument, nullptr, 'e' },
+        { "failed-only", no_argument, nullptr, 'f' },
+        { nullptr, no_argument, nullptr, 0 }
     };
     int long_option_index = 0;
     
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     yatf::report_options options = { false, false, true };
 
     /* Parse command line options */
-    char option;
+    int option = 0;
     while ((option = getopt_long(argc, argv, short_options, long_options, &long_option_index)) != -1) {
         switch (option) {
             case 'h': show_help = true; break;
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     }
     /* List all registered test cases */
     else if (show_list) {
-        runner.list_all_tests();
+        yatf::test_runner::list_all_tests();
     }
     /* No test file(s) given, run all registered tests */
     else if (optind == argc) {

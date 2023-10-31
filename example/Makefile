@@ -9,17 +9,13 @@ INC_DIR := include
 SRC_DIR := src
 TEST_DIR := test
 
-# Sources
-SRC_FILES := $(wildcard $(SRC_DIR)/*.cc)
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BIN_DIR)/%.o,$(SRC_FILES))
+# Object files and test files
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BIN_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cc))
+TEST_FILES := $(patsubst $(TEST_DIR)/%.cc,$(BIN_DIR)/%,$(wildcard $(TEST_DIR)/*.cc))
 
-# Tests
-TEST_SRC_FILES := $(wildcard $(TEST_DIR)/*.cc)
-TEST_FILES := $(patsubst $(TEST_DIR)/%.cc,$(BIN_DIR)/%,$(TEST_SRC_FILES))
+.PHONY: all check clean
 
-.PHONY: all clean
-
-all: $(TEST_FILES)
+all: $(OBJ_FILES) $(TEST_FILES)
 
 # Compile test files
 $(BIN_DIR)/%: $(TEST_DIR)/%.cc $(OBJ_FILES)
@@ -29,6 +25,10 @@ $(BIN_DIR)/%: $(TEST_DIR)/%.cc $(OBJ_FILES)
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.cc
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+
+# Run test files
+check: $(OBJ_FILES) $(TEST_FILES)
+	@for test in $(TEST_FILES); do ./$$test; done
 
 clean:
 	rm -rf $(BIN_DIR)
