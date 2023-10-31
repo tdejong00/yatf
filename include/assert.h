@@ -4,45 +4,63 @@
 #include <string>
 #include <sstream>
 
-namespace yatf {
+/**
+ * @brief Provides assertion function for verifying specific conditions within test cases.
+ */
+namespace assert {
     /**
-     * @brief Provides assertion function for verifying specific conditions within test cases.
+     * @brief Error thrown when an assertion has failed.
      */
-    namespace assert {
-        /**
-         * @brief Error thrown when an assertion has failed.
-         */
-        class assertion_error : public std::runtime_error {
-            public:
-                explicit assertion_error(std::string message) : std::runtime_error("assertion failed: " + message) { }
-        };
+    class assertion_error : public std::runtime_error {
+        public:
+            explicit assertion_error(std::string message) : std::runtime_error("assertion failed: " + message) { }
+    };
 
-        /**
-         * @brief Attempts to convert a value to its string representation.
-         * 
-         * @tparam T The type of the value.
-         * @param value The value to convert.
-         * @return The string representation of the value.
-         */
-        template<typename T>
-        std::string to_string(const T &value) {
-            std::stringstream ss;
-            ss << value;
-            return ss.str();
-        }
+    /**
+     * @brief Assertion object for performing various assertions on a value.
+     *
+     * @tparam T The type of the value being asserted.
+     */
+    template<typename T>
+    class assertion {
+        public:
+            /**
+             * @brief Constructs a new instance of the assertion object using the specified value.
+             *
+             * @param value The value to be asserted.
+             */
+            explicit assertion(const T &value) : value(value) {}
 
-        /**
-         * Asserts that the two values are equal. Throws an assertion_error on failure.
-         * @tparam T Type of the values.
-         * @param actual The actual value.
-         * @param expected The expected value.
-         */
-        template<typename T>
-        void is_equal(T actual, T expected) {
-            if (actual != expected) {
-                throw assertion_error("expected " + assert::to_string(expected) + ", but was " + assert::to_string(actual));
+            /**
+             * @brief Asserts that the value is equal to the expected value.
+             *
+             * @tparam U The type of the expected value.
+             * @param expected The expected value.
+             */
+            template <typename U>
+            void is_equal_to(const U &expected) {
+                if (!(value == expected)) {
+                    std::stringstream ss;
+                    ss << "expected " << expected << ", but was " << value;
+                    throw assertion_error(ss.str());
+                }
             }
-        }
+
+        private:
+            T value;
+    };
+
+    /**
+     * @brief Creates an assertion object for the specified value.
+     *
+     * @tparam T The type of the value.
+     * @param value The value to be asserted.
+     *
+     * @return An assertion object for the value.
+     */
+    template<typename T>
+    assertion<T> that(const T &value) {
+        return assertion<T>(value);
     }
 }
 

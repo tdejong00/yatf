@@ -10,7 +10,7 @@ VERSIONED_TARGET := $(TARGET).$(MAJOR).$(MINOR)
 
 # Compiler
 CC := g++
-CFLAGS := -Wall -Wextra -Wpedantic -std=c++17
+CFLAGS := -Wall -Wextra -Wpedantic -std=c++11
 LDFLAGS := -shared -Wl,-emain,-soname,$(TARGET)
 
 # Directories
