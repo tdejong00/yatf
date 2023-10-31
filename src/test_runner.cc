@@ -11,13 +11,13 @@ namespace yatf {
      * @param time_point The time point for which to calculate to elapsed time.
      * @return The elapsed time in seconds.
      */
-    inline std::chrono::duration<double> elapsed_time(std::chrono::high_resolution_clock::time_point time_point) {
+    inline std::chrono::duration<double> elapsed_time(const std::chrono::high_resolution_clock::time_point &time_point) {
         return std::chrono::high_resolution_clock::now() - time_point;
     }
 
     test_runner::test_runner() : statistics({0, 0, 0}) {}
 
-    test_runner::test_runner(report_options options) : reporter(test_reporter(options)), statistics({0, 0, 0}) {}
+    test_runner::test_runner(const report_options &options) : reporter(test_reporter(options)), statistics({0, 0, 0}) {}
 
     bool test_runner::run_test_suite(const char *test_suite_name) {
         test_suite *test_suite = test_registry::find_test_suite(test_suite_name);
@@ -50,7 +50,7 @@ namespace yatf {
         }
     }
 
-    void test_runner::run_test_suite(test_suite test_suite) {
+    void test_runner::run_test_suite(const test_suite &test_suite) {
         auto time_point = std::chrono::high_resolution_clock::now();
         
         reporter.announce_test_suite(test_suite);
@@ -64,7 +64,7 @@ namespace yatf {
         reporter.report_test_suite(test_suite, after - before, elapsed_time(time_point));
     }
 
-    void test_runner::run_test_case(test_case test_case) {
+    void test_runner::run_test_case(const test_case &test_case) {
         auto time_point = std::chrono::high_resolution_clock::now();
         
         try {

@@ -24,7 +24,7 @@ namespace yatf {
      * @param report_level The test result to stream.
      * @return A reference to the output stream after streaming the test result.
      */
-    std::ostream &operator<<(std::ostream &stream, test_result test_result);
+    std::ostream &operator<<(std::ostream &stream, const test_result &test_result);
 
     /**
      * @brief A container for storing the test results.
@@ -41,7 +41,7 @@ namespace yatf {
          * @param second The second test statistics.
          * @return The difference between the two test statistics.
          */
-        friend test_statistics operator-(test_statistics first, test_statistics second);
+        friend test_statistics operator-(const test_statistics &first, const test_statistics &second);
 
         /**
          * @brief Streams test statistics to an output stream.
@@ -50,7 +50,7 @@ namespace yatf {
          * @param test_statistics The test statistics to stream.
          * @return A reference to the output stream after streaming the test statistics.
          */
-        friend std::ostream &operator<<(std::ostream &stream, test_statistics test_statistics);
+        friend std::ostream &operator<<(std::ostream &stream, const test_statistics &test_statistics);
     };
 
     /**
@@ -69,7 +69,7 @@ namespace yatf {
      * @param duration The duration to stream.
      * @return A reference to the output stream after streaming the duration.
      */
-    std::ostream &operator<<(std::ostream &stream, std::chrono::duration<double> duration);
+    std::ostream &operator<<(std::ostream &stream, const std::chrono::duration<double> &duration);
 
     /**
      * @brief Provides functionality for announcing tests and reporting test results.
@@ -86,35 +86,35 @@ namespace yatf {
              * 
              * @param options Options for controlling the announcements and reports.
              */
-            test_reporter(report_options options);
+            test_reporter(const report_options &options);
 
             /**
              * @brief Lists the test suite.
              * 
              * @param test_suite The test suite to list.
              */
-            static void list(test_suite test_suite);
+            static void list(const test_suite &test_suite);
 
             /**
              * @brief Lists the test case.
              * 
              * @param test_case The test case to list.
              */
-            static void list(test_case test_case);
+            static void list(const test_case &test_case);
 
             /**
              * @brief Announces all test suites.
              * 
              * @param suites A list of test suites to announce.
              */
-            void announce_test_module(std::vector<test_suite> suites) const;
+            void announce_test_module(const std::vector<test_suite> &suites) const;
 
             /**
              * @brief Announces a single test suite.
              * 
              * @param test_suite The test suite to announce.
              */
-            void announce_test_suite(test_suite test_suite) const;
+            void announce_test_suite(const test_suite &test_suite) const;
 
             /**
              * @brief Reports the failure of a test case.
@@ -124,7 +124,7 @@ namespace yatf {
              * @param duration The elapsed time in seconds.
              * @param failure_reason Reason for why the test case has failed.
              */
-            void report_test_case(test_case test_case, test_result test_result, std::chrono::duration<double> duration, const char *failure_reason = "") const;
+            void report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const char *failure_reason = "") const;
 
             /**
              * @brief Reports the results of the whole test suite.
@@ -133,7 +133,7 @@ namespace yatf {
              * @param test_statistics The statistics for the executed tests.
              * @param duration The elapsed time in seconds.
              */
-            void report_test_suite(test_suite test_suite, test_statistics statistics, std::chrono::duration<double> duration) const;
+            void report_test_suite(const test_suite &test_suite, const test_statistics &statistics, const std::chrono::duration<double> &duration) const;
 
             /**
              * @brief Reports the result of all test cases.
@@ -141,7 +141,7 @@ namespace yatf {
              * @param statistics The statistics for the executed tests.
              * @param duration The elapsed time in seconds.
              */
-            void report_test_module(test_statistics statistics, std::chrono::duration<double> duration) const;
+            void report_test_module(const test_statistics &statistics, const std::chrono::duration<double> &duration) const;
 
         private:
             report_options options;

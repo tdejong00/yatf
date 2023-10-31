@@ -18,7 +18,7 @@ void print_help() {
 int main(int argc, char **argv) {
     /* Define command line options */
     const char *short_options = "hlvef";
-    struct option long_options[] = { 
+    struct option long_options[] = { //NOLINT
         { "help", no_argument, nullptr, 'h' },
         { "list", no_argument, nullptr, 'l' },
         { "verbose", no_argument, nullptr, 'v' },

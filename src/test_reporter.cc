@@ -9,11 +9,14 @@ namespace yatf {
     const constexpr char *GREEN_COLOR = "\033[32m";
     const constexpr char *ORANGE_COLOR = "\033[33m";
 
+    const int MILLISECONDS_PRECISION = 6;
+    const int MILLISECONDS_RATIO = 1000;
+
     test_reporter::test_reporter() : options({ false, false, true }) {}
 
-    test_reporter::test_reporter(report_options options) : options(options) {}
+    test_reporter::test_reporter(const report_options &options) : options(options) {}
 
-    std::ostream &operator<<(std::ostream &stream, test_result test_result) {
+    std::ostream &operator<<(std::ostream &stream, const test_result &test_result) {
         switch (test_result) {
             case FAILED: return stream << RED_COLOR << "FAIL: " << RESET_COLOR;
             case PASSED: return stream << GREEN_COLOR << "OK: " << RESET_COLOR;
@@ -21,7 +24,7 @@ namespace yatf {
         }
     }
 
-    test_statistics operator-(test_statistics first, test_statistics second) {
+    test_statistics operator-(const test_statistics &first, const test_statistics &second) {
         return {
             first.total_count - second.total_count, 
             first.passed_count - second.passed_count, 
@@ -29,25 +32,26 @@ namespace yatf {
         };
     }
 
-    std::ostream &operator<<(std::ostream &stream, test_statistics test_statistics) {
+    std::ostream &operator<<(std::ostream &stream, const test_statistics &test_statistics) {
         return stream << (test_statistics.failed_count > 0 ? RED_COLOR : GREEN_COLOR)
             << test_statistics.passed_count << (test_statistics.passed_count == 1 ? " test " : " tests ") << "passed, "
             << test_statistics.failed_count << (test_statistics.failed_count == 1 ? " test " : " tests ") << "failed";
     }
 
-    std::ostream &operator<<(std::ostream &stream, std::chrono::duration<double> duration) {
-        return stream << "(" << std::fixed << std::setprecision(6) << duration.count() * 1000 << " ms)";
+    std::ostream &operator<<(std::ostream &stream, const std::chrono::duration<double> &duration) {
+        return stream << "(" << std::fixed << std::setprecision(MILLISECONDS_PRECISION)
+            << duration.count() * MILLISECONDS_RATIO << " ms)";
     }
 
-    void test_reporter::list(test_suite test_suite) {
+    void test_reporter::list(const test_suite &test_suite) {
         std::cout << test_suite << std::endl;
     }
 
-    void test_reporter::list(test_case test_case) {
+    void test_reporter::list(const test_case &test_case) {
         std::cout << test_case << std::endl;
     }
 
-    void test_reporter::announce_test_module(std::vector<test_suite> test_suites) const {
+    void test_reporter::announce_test_module(const std::vector<test_suite> &test_suites) const {
         if (options.is_verbose) {
             const size_t n_suites = test_suites.size();
             size_t n_tests = 0;
@@ -61,7 +65,7 @@ namespace yatf {
         }
     }
 
-    void test_reporter::announce_test_suite(test_suite test_suite) const {
+    void test_reporter::announce_test_suite(const test_suite &test_suite) const {
         if (options.is_verbose) {
             const size_t n_tests = test_suite.test_cases.size();
             std::cout << UNKNOWN << "Running " << n_tests << " "
@@ -69,7 +73,7 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_case(test_case test_case, test_result test_result, std::chrono::duration<double> duration, const char *failure_reason) const {
+    void test_reporter::report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const char *failure_reason) const {
         switch (test_result) {
             case PASSED:
                 if (options.show_passed_tests) {
@@ -93,7 +97,7 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_suite(test_suite test_suite, test_statistics test_statistics, std::chrono::duration<double> duration) const {
+    void test_reporter::report_test_suite(const test_suite &test_suite, const test_statistics &test_statistics, const std::chrono::duration<double> &duration) const {
         if (options.is_verbose) {
             const size_t n_tests = test_suite.test_cases.size();
             std::cout << UNKNOWN << "Ran " << n_tests << " " 
@@ -105,7 +109,7 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_module(test_statistics test_statistics, std::chrono::duration<double> duration) const {
+    void test_reporter::report_test_module(const test_statistics &test_statistics, const std::chrono::duration<double> &duration) const {
         std::cout << UNKNOWN << test_statistics;
         if (options.show_execution_times) {
             std::cout << " " << duration;

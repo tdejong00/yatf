@@ -22,7 +22,7 @@ namespace yatf {
              * 
              * @param options Options for controlling the announcements and reports.
              */
-            test_runner(report_options options);
+            test_runner(const report_options &options);
 
             /**
              * @brief Runs a specific test suite.
@@ -49,14 +49,14 @@ namespace yatf {
              * 
              * @param test_suite The test suite to run.
              */
-            void run_test_suite(test_suite test_suite);
+            void run_test_suite(const test_suite &test_suite);
 
             /**
              * @brief Runs a specific test case.
              * 
              * @param test_case The test case to run.
              */
-            void run_test_case(test_case test_case);
+            void run_test_case(const test_case &test_case);
 
             test_reporter reporter;
             test_statistics statistics;

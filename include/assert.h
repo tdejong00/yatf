@@ -13,7 +13,7 @@ namespace assert {
      */
     class assertion_error : public std::runtime_error {
         public:
-            explicit assertion_error(std::string message) : std::runtime_error("assertion failed: " + message) { }
+            explicit assertion_error(const std::string &message) : std::runtime_error("assertion failed: " + message) { }
     };
 
     /**

@@ -23,7 +23,7 @@ namespace yatf {
          * @param test_case The test case to stream.
          * @return A reference to the output stream after streaming the test case.
          */
-        friend std::ostream &operator<<(std::ostream &stream, test_case test_case);
+        friend std::ostream &operator<<(std::ostream &stream, const test_case &test_case);
     };
     
     /**
@@ -42,7 +42,7 @@ namespace yatf {
          * @param test_suite The test suite to stream.
          * @return A reference to the output stream after streaming the test suite.
          */
-        friend std::ostream &operator<<(std::ostream &stream, test_suite test_suite);
+        friend std::ostream &operator<<(std::ostream &stream, const test_suite &test_suite);
     };
 
     /**
@@ -77,7 +77,7 @@ namespace yatf {
              * @param suite_name The name of the test suite to register the test case in.
              * @param test_case The test case to register.
              */
-            static void register_test_case(const char *suite_name, test_case test_case);
+            static void register_test_case(const char *suite_name, const test_case &test_case);
 
             /**
              * @brief Finds the test suite with the given name
