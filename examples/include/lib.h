@@ -1,6 +1,9 @@
 #ifndef __MATH_H__
 #define __MATH_H__
 
+#include <string>
+#include <ostream>
+
 /**
  * @brief Adds two numbers.
  * 
