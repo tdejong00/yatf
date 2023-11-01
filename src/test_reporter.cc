@@ -73,7 +73,7 @@ namespace yatf {
         }
     }
 
-    void test_reporter::report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const char *failure_reason) const {
+    void test_reporter::report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const std::string &reason) const {
         switch (test_result) {
             case PASSED:
                 if (options.show_passed_tests) {
@@ -81,15 +81,18 @@ namespace yatf {
                     if (options.show_execution_times) {
                         std::cout << " " << duration;
                     }
-                    std::cout << std::endl;
                 }
+                std::cout << std::endl;
                 break;
             case FAILED:
                 std::cerr << FAILED << test_case;
                 if (options.show_execution_times) {
                     std::cerr << " " << duration;
                 }
-                std::cerr << " --> " << RED_COLOR << failure_reason << RESET_COLOR << std::endl;
+                if (!reason.empty()) {
+                    std::cerr << " --> " << RED_COLOR << reason << RESET_COLOR;
+                }
+                std::cout << std::endl;
                 break;
             default:
                 std::cerr << RED_COLOR << "error: unknown test result" << RESET_COLOR << std::endl;

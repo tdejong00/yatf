@@ -31,7 +31,7 @@ namespace yatf {
              * 
              * @return Whether the test suite was found.
              */
-            bool run_test_suite(const char *suite_name);
+            bool run_test_suite(const std::string &suite_name);
 
             /**
              * @brief Runs all registered test cases.

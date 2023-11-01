@@ -16,7 +16,6 @@ namespace yatf {}
 #include "test_registry.h"
 #include "test_reporter.h"
 #include "test_runner.h"
-#include "assert.h"
 
 #define TEST_CASE(name) \
     class __TEST__CASE__##name##__ { \

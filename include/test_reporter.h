@@ -122,9 +122,9 @@ namespace yatf {
              * @param test_case The test case to report.
              * @param test_result The result of the test case.
              * @param duration The elapsed time in seconds.
-             * @param failure_reason Reason for why the test case has failed.
+             * @param reason Reason for why the test case has failed or passed.
              */
-            void report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const char *failure_reason = "") const;
+            void report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const std::string &reason = "") const;
 
             /**
              * @brief Reports the results of the whole test suite.
