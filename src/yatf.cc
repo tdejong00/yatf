@@ -10,7 +10,6 @@ void print_help() {
     std::cout << "    -h --help           Display this help message." << std::endl;
     std::cout << "    -l --list           Lists the registered test files and cases." << std::endl << std::endl;
     std::cout << "Output options:" << std::endl;
-    std::cout << "    -v --verbose        Enable verbose test reports." << std::endl;
     std::cout << "    -e --execution-time Enable execution times in the test reports." << std::endl;
     std::cout << "    -f --failed-only    Disable test reports for passed tests." << std::endl;
 }
@@ -21,7 +20,6 @@ int main(int argc, char **argv) {
     struct option long_options[] = { //NOLINT
         { "help", no_argument, nullptr, 'h' },
         { "list", no_argument, nullptr, 'l' },
-        { "verbose", no_argument, nullptr, 'v' },
         { "execution-time", no_argument, nullptr, 'e' },
         { "failed-only", no_argument, nullptr, 'f' },
         { nullptr, no_argument, nullptr, 0 }
@@ -30,7 +28,7 @@ int main(int argc, char **argv) {
     
     bool show_help = false;
     bool show_list = false;
-    yatf::report_options options = { false, false, true };
+    yatf::report_options options = { false, true };
 
     /* Parse command line options */
     int option = 0;
@@ -38,7 +36,6 @@ int main(int argc, char **argv) {
         switch (option) {
             case 'h': show_help = true; break;
             case 'l': show_list = true; break;
-            case 'v': options.is_verbose = true; break;
             case 'e': options.show_execution_times = true; break;
             case 'f': options.show_passed_tests = false; break;
             default: exit(EXIT_FAILURE);

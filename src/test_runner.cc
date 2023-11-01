@@ -29,15 +29,9 @@ namespace yatf {
     }
 
     void test_runner::run_all_tests() {
-        auto time_point = std::chrono::high_resolution_clock::now();
-
-        reporter.announce_test_module(test_registry::get_test_suites());
-
         for (const test_suite &test_suite : test_registry::get_test_suites()) {
             run_test_suite(test_suite);
         }
-
-        reporter.report_test_module(statistics, elapsed_time(time_point));
     }
 
     void test_runner::list_all_tests()
@@ -61,7 +55,7 @@ namespace yatf {
         }
         const test_statistics after = statistics;
 
-        reporter.report_test_suite(test_suite, after - before, elapsed_time(time_point));
+        reporter.report_test_suite(after - before, elapsed_time(time_point));
     }
 
     void test_runner::run_test_case(const test_case &test_case) {
