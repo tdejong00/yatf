@@ -31,7 +31,7 @@ LIB_INSTALL_DIR = $(DESTDIR)$(PREFIX)/lib
 INC_INSTALL_DIR = $(DESTDIR)$(PREFIX)/include/$(PROJECT_NAME)
 
 # Source files
-SRC_FILES := $(wildcard $(SRC_DIR)/*.cc)
+SRC_FILES := $(shell find $(SRC_DIR) -name "*.cc")
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(SRC_FILES))
 
 .PHONY: default install uninstall lint clean

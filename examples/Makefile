@@ -10,8 +10,8 @@ SRC_DIR := src
 TEST_DIR := tests
 
 # Object files and test files
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cc))
-TEST_FILES := $(patsubst $(TEST_DIR)/%.cc,$(BUILD_DIR)/%,$(wildcard $(TEST_DIR)/*.cc))
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(shell find $(SRC_DIR) -name "*.cc"))
+TEST_FILES := $(patsubst $(TEST_DIR)/%.cc,$(BUILD_DIR)/%,$(shell find $(TEST_DIR) -name "*.cc"))
 
 .PHONY: all check clean
 
