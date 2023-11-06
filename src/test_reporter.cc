@@ -44,8 +44,9 @@ namespace yatf {
 
     std::ostream &operator<<(std::ostream &stream, const test_statistics &test_statistics) {
         return stream << (test_statistics.failed_count > 0 ? RED : GREEN)
-            << test_statistics.passed_count << (test_statistics.passed_count == 1 ? " test " : " tests ") << "passed, "
-            << test_statistics.failed_count << (test_statistics.failed_count == 1 ? " test " : " tests ") << "failed";
+            << test_statistics.passed_count << (test_statistics.passed_count == 1 ? " test " : " tests ") 
+            << "passed, " << test_statistics.failed_count << (test_statistics.failed_count == 1 ? " test " : " tests ") 
+            << "failed" << RESET;
     }
 
     std::ostream &operator<<(std::ostream &stream, const std::chrono::duration<double> &duration) {
