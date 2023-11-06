@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "test_reporter.h"
-#include "assert.h"
+#include "assertions/assertions.h"
 
 namespace yatf {
     /**
