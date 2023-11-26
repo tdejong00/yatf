@@ -8,9 +8,8 @@
 
 namespace yatf {
     /**
-     * @brief A test case within a test suite.
-     * 
-     * Consists of a human-readable name and a function pointer to the actual test code.
+     * A test case within a test suite. Consists of a human-readable 
+     * name and a function pointer to the actual test code.
      */
     struct test_case {
         const std::string name; /* Name of the test case. */
@@ -19,7 +18,7 @@ namespace yatf {
         std::function<void()> function; /* Function pointer to the test case function. */
 
         /**
-         * @brief Streams a test case to an output stream.
+         * Streams a test case to an output stream.
          * 
          * @param stream The output stream to stream to.
          * @param test_case The test case to stream.
@@ -29,16 +28,15 @@ namespace yatf {
     };
     
     /**
-     * @brief A container for grouping multiple test cases.
-     * 
-     * Consists of a human-readable name and a collection of test cases.
+     * A container for grouping multiple test cases. Consists 
+     * of a human-readable name and a collection of test cases.
      */
     struct test_suite {
         const std::string name; /* Name of the test suite. */
         std::vector<test_case> test_cases; /* Collection of test cases within the test suite. */
 
         /**
-         * @brief Streams a test suite to an output stream.
+         * Streams a test suite to an output stream.
          * 
          * @param stream The output stream to stream to.
          * @param test_suite The test suite to stream.
@@ -48,33 +46,33 @@ namespace yatf {
     };
 
     /**
-     * @brief Manages and stores test cases for the testing framework.
+     * Manages and stores test cases for the testing framework.
      */
     class test_registry {
         public:
             /**
-             * @brief Retrieves all registered test suites.
+             * Retrieves all registered test suites.
              * 
              * @return A vector containing all registered test suites.
              */
             static std::vector<test_suite> get_test_suites();
 
             /**
-             * @brief Retrieves all registered test cases.
+             * Retrieves all registered test cases.
              * 
              * @return A vector containing all registered test cases.
              */
             static std::vector<test_case> get_test_cases();
 
             /**
-             * @brief Registers a test suite.
+             * Registers a test suite.
              * 
              * @param suite_name The name of the test suite.
              */
             static test_suite *register_test_suite(const std::string &suite_name);
 
             /**
-             * @brief Registers the test case in the test suite with the given name.
+             * Registers the test case in the test suite with the given name.
              * 
              * @param suite_name The name of the test suite to register the test case in.
              * @param test_case The test case to register.
@@ -82,7 +80,7 @@ namespace yatf {
             static void register_test_case(const std::string &suite_name, const test_case &test_case);
 
             /**
-             * @brief Finds the test suite with the given name
+             * Finds the test suite with the given name
              * 
              * @param suite_name The name of the test suite.
              * @return A pointer to the test suite, or nullptr if not found.
@@ -90,7 +88,7 @@ namespace yatf {
             static test_suite *find_test_suite(const std::string &suite_name);
 
             /**
-             * @brief Finds the test case with the given name
+             * Finds the test case with the given name
              * 
              * @param suite_name The name of the test suite.
              * @param case_name The name of the test case.

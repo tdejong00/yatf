@@ -8,24 +8,24 @@
 
 namespace yatf {
     /**
-     * @brief Runs the test cases of test suites and reports the results using a test reporter.
+     * Runs the test cases of test suites and reports the results using a test reporter.
      */
     class test_runner {
         public:
             /**
-             * @brief Constructs a new instance of the test runner using the default report options.
+             * Constructs a new instance of the test runner using the default report options.
              */
             test_runner();
 
             /**
-             * @brief Constructs a new instance of the test runner using the given report options.
+             * Constructs a new instance of the test runner using the given report options.
              * 
              * @param options Options for controlling the announcements and reports.
              */
             test_runner(const report_options &options);
 
             /**
-             * @brief Runs a specific test suite.
+             * Runs a specific test suite.
              * 
              * @param test_suite The name of the test suite to run.
              * 
@@ -34,25 +34,25 @@ namespace yatf {
             bool run_test_suite(const std::string &suite_name);
 
             /**
-             * @brief Runs all registered test cases.
+             * Runs all registered test cases.
              */
             void run_all_tests();
 
             /**
-             * @brief Lists all registered test cases.
+             * Lists all registered test cases.
              */
             static void list_all_tests();
 
         private:
             /**
-             * @brief Runs a specific test suite.
+             * Runs a specific test suite.
              * 
              * @param test_suite The test suite to run.
              */
             void run_test_suite(const test_suite &test_suite);
 
             /**
-             * @brief Runs a specific test case.
+             * Runs a specific test case.
              * 
              * @param test_case The test case to run.
              */

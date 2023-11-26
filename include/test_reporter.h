@@ -9,12 +9,12 @@
 
 namespace yatf {
     /**
-     * @brief Represents different terminal colors.
+     * Represents different terminal colors.
      */
     enum color { RED, GREEN, ORANGE, GRAY, RESET };
 
     /**
-     * @brief Streams a color to an output stream.
+     * Streams a color to an output stream.
      * 
      * @param stream The output stream to stream to.
      * @param color The color to stream.
@@ -23,12 +23,12 @@ namespace yatf {
     std::ostream &operator<<(std::ostream &stream, const color &color);
 
     /**
-     * @brief Represents the result of a test case.
+     * Represents the result of a test case.
      */
     enum test_result { UNKNOWN, FAILED, PASSED };
 
     /**
-     * @brief Streams a test result to an output stream.
+     * Streams a test result to an output stream.
      * 
      * @param stream The output stream to stream to.
      * @param report_level The test result to stream.
@@ -37,7 +37,7 @@ namespace yatf {
     std::ostream &operator<<(std::ostream &stream, const test_result &test_result);
 
     /**
-     * @brief A container for storing the test results.
+     * A container for storing the test results.
      */
     struct test_statistics {
         int total_count; /* Total amount of test cases. */
@@ -45,7 +45,7 @@ namespace yatf {
         int failed_count; /* Number of failed test cases. */
 
         /**
-         * @brief Calculates the difference between two test statistics.
+         * Calculates the difference between two test statistics.
          * 
          * @param first The first test statistics.
          * @param second The second test statistics.
@@ -54,7 +54,7 @@ namespace yatf {
         friend test_statistics operator-(const test_statistics &first, const test_statistics &second);
 
         /**
-         * @brief Streams test statistics to an output stream.
+         * Streams test statistics to an output stream.
          *
          * @param stream The output stream to stream to.
          * @param test_statistics The test statistics to stream.
@@ -64,7 +64,7 @@ namespace yatf {
     };
 
     /**
-     * @brief Represents the different output options for the test announcements and reports.
+     * Represents the different output options for the test announcements and reports.
      */
     struct report_options {
         bool show_execution_times; /* Whether to show execution times in the test reports. */
@@ -72,7 +72,7 @@ namespace yatf {
     };
 
     /**
-     * @brief Streams a duration to an output stream.
+     * Streams a duration to an output stream.
      * 
      * @param stream The output stream to stream to.
      * @param duration The elapsed time in seconds to stream.
@@ -81,52 +81,52 @@ namespace yatf {
     std::ostream &operator<<(std::ostream &stream, const std::chrono::duration<double> &duration);
 
     /**
-     * @brief Provides functionality for announcing tests and reporting test results.
+     * Provides functionality for announcing tests and reporting test results.
      */
     class test_reporter {
         public:
             /**
-             * @brief Constructs a new instance of the test reporter using the default report options.
+             * Constructs a new instance of the test reporter using the default report options.
              */
             test_reporter();
 
             /**
-             * @brief Constructs a new instance of the test reporter using the given report options.
+             * Constructs a new instance of the test reporter using the given report options.
              * 
              * @param options Options for controlling the announcements and reports.
              */
             test_reporter(const report_options &options);
 
             /**
-             * @brief Displays a message.
+             * Displays a message.
              * 
              * @param message The message to display.
              */
             static void message(const std::string &message);
 
             /**
-             * @brief Lists the test suite.
+             * Lists the test suite.
              * 
              * @param test_suite The test suite to list.
              */
             static void list(const test_suite &test_suite);
 
             /**
-             * @brief Lists the test case.
+             * Lists the test case.
              * 
              * @param test_case The test case to list.
              */
             static void list(const test_case &test_case);
 
             /**
-             * @brief Announces a single test suite.
+             * Announces a single test suite.
              * 
              * @param test_suite The test suite to announce.
              */
             void announce_test_suite(const test_suite &test_suite) const;
 
             /**
-             * @brief Reports the failure of a test case.
+             * Reports the failure of a test case.
              * 
              * @param test_case The test case to report.
              * @param test_result The result of the test case.
@@ -136,7 +136,7 @@ namespace yatf {
             void report_test_case(const test_case &test_case, const test_result &test_result, const std::chrono::duration<double> &duration, const std::string &reason = "") const;
 
             /**
-             * @brief Reports the results of the whole test suite.
+             * Reports the results of the whole test suite.
              *
              * @param test_statistics The statistics for the executed tests.
              * @param duration The elapsed time in seconds.

@@ -6,7 +6,7 @@
 
 namespace yatf {
     /**
-     * @brief Calculates the elapsed time since the given time point.
+     * Calculates the elapsed time since the given time point.
      * 
      * @param time_point The time point for which to calculate to elapsed time.
      * @return The elapsed time in seconds.

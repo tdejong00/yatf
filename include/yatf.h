@@ -2,7 +2,7 @@
 #define __YATF_H__
 
 /**
- * @brief The root namespace for YATF.
+ * The root namespace for YATF.
  *
  * This namespace contains all the components and utilities necessary for creating,
  * registering, and running tests, as well as reporting their results. The framework

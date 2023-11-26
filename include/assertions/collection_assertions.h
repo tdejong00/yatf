@@ -7,11 +7,11 @@
 
 namespace assert {
     /**
-     * @brief Provides collection assertions for verifying specific conditions within test cases.
+     * Provides collection assertions for verifying specific conditions within test cases.
      */
     namespace collection {
         /**
-         * @brief Asserts that a collection is empty.
+         * Asserts that a collection is empty.
          * 
          * @tparam T The type of the collection, which has to be iterable.
          * @param container The collection to check.
@@ -24,7 +24,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a collection is not empty.
+         * Asserts that a collection is not empty.
          * 
          * @tparam T The type of the collection, which has to be iterable.
          * @param container The collection to check.
@@ -37,7 +37,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a collection contains a specific value.
+         * Asserts that a collection contains a specific value.
          * 
          * @tparam T The type of the collection, which has to be iterable.
          * @tparam U The type of the value of the items of the collection.
@@ -52,7 +52,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a collection does not contain a specific value.
+         * Asserts that a collection does not contain a specific value.
          * 
          * @tparam T The type of the collection, which has to be iterable.
          * @tparam U The type of the value of the items of the collection.
@@ -67,7 +67,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a collection is equal to another collection.
+         * Asserts that a collection is equal to another collection.
          * 
          * @tparam T The type of the collections, which has to be iterable.
          * @tparam U The type of the items of the collections, which has to be equality comparable.
@@ -93,7 +93,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a collection is not equal to another collection.
+         * Asserts that a collection is not equal to another collection.
          * 
          * @tparam T The type of the collections, which has to be iterable.
          * @tparam U The type of the items of the collections, which has to be equality comparable.

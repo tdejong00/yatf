@@ -4,7 +4,7 @@
 #include <type_traits>
 
 /**
- * @brief Contains type traits for checking various properties of types used in assertions.
+ * Contains type traits for checking various properties of types used in assertions.
  */
 namespace type_traits {
     template<typename T, typename U>
@@ -19,7 +19,7 @@ namespace type_traits {
     };
 
     /**
-     * @brief Type trait for checking if two types are equality comparable.
+     * Type trait for checking if two types are equality comparable.
      */
     template<typename T, typename U>
     struct are_equality_comparable : are_equality_comparable_helper<T, U>::type {};
@@ -45,7 +45,7 @@ namespace type_traits {
     };
 
     /**
-     * @brief Type trait for checking if a type is iterable.
+     * Type trait for checking if a type is iterable.
      */
     template<typename T>
     struct is_iterable : is_iterable_helper<T>::type {};

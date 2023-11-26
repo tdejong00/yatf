@@ -5,7 +5,7 @@
 #include <ostream>
 
 /**
- * @brief Adds two numbers.
+ * Adds two numbers.
  * 
  * @param first The first number.
  * @param second The second number.

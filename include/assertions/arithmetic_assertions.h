@@ -5,7 +5,7 @@
 
 namespace assert {
     /**
-     * @brief Asserts that the value is equal to zero.
+     * Asserts that the value is equal to zero.
      *
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param value The value to check.
@@ -18,7 +18,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is not equal to zero.
+     * Asserts that the value is not equal to zero.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param value The value to check.
@@ -31,7 +31,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is positive.
+     * Asserts that the value is positive.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param value The value to check.
@@ -44,7 +44,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is negative.
+     * Asserts that the value is negative.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param value The value to check.
@@ -57,7 +57,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is greater than the expected value.
+     * Asserts that the value is greater than the expected value.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param actual The actual value.
@@ -71,7 +71,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is greater or equal than the expected value.
+     * Asserts that the value is greater or equal than the expected value.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param actual The actual value.
@@ -85,7 +85,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is less than the expected value.
+     * Asserts that the value is less than the expected value.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param actual The actual value.
@@ -99,7 +99,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that the value is less or equal than the expected value.
+     * Asserts that the value is less or equal than the expected value.
      * 
      * @tparam T The type of the value, has to be either an integral type or a floating point type.
      * @param actual The actual value.

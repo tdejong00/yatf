@@ -5,11 +5,11 @@
 
 namespace assert {
     /**
-     * @brief Provides pointer assertions for verifying specific conditions within test cases.
+     * Provides pointer assertions for verifying specific conditions within test cases.
      */
     namespace pointer {
         /**
-         * @brief Asserts that a pointer is null.
+         * Asserts that a pointer is null.
          *
          * @tparam T The type of the pointer.
          * @param pointer The pointer to check.
@@ -22,7 +22,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a pointer is not null.
+         * Asserts that a pointer is not null.
          *
          * @tparam T The type of the pointer.
          * @param pointer The pointer to check.
@@ -35,7 +35,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a pointer is pointing to the same value as another pointer.
+         * Asserts that a pointer is pointing to the same value as another pointer.
          *
          * @tparam T The type of the values.
          * @param actual The actual value.
@@ -49,7 +49,7 @@ namespace assert {
         }
 
         /**
-         * @brief Asserts that a pointer is not pointing to the same value as another pointer.
+         * Asserts that a pointer is not pointing to the same value as another pointer.
          *
          * @tparam T The type of the values.
          * @param actual The actual value.

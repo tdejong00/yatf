@@ -7,21 +7,21 @@
 #include "type_traits.h"
 
 /**
- * @brief Provides basic assertions for verifying specific conditions within test cases.
+ * Provides basic assertions for verifying specific conditions within test cases.
  */
 namespace assert {
     /**
-     * @brief Error thrown when an assertion has failed.
+     * Error thrown when an assertion has failed.
      */
     class assertion_failed : public std::runtime_error {
         public:
             /**
-             * @brief Construct a new instance of the assertion failed error.
+             * Construct a new instance of the assertion failed error.
              */
             explicit assertion_failed() : std::runtime_error("") { }
 
             /**
-             * @brief Construct a new instance of the assertion failed error using the specified message.
+             * Construct a new instance of the assertion failed error using the specified message.
              *
              * @param message The details of the assertion.
              */
@@ -29,17 +29,17 @@ namespace assert {
     };
 
     /**
-     * @brief Error thrown when an assertion has passed.
+     * Error thrown when an assertion has passed.
      */
     class assertion_passed : public std::runtime_error {
         public:
             /**
-             * @brief Construct a new instance of the assertion passed error.
+             * Construct a new instance of the assertion passed error.
              */
             explicit assertion_passed() : std::runtime_error("") { }
 
             /**
-             * @brief Construct a new instance of the assertion passed error using the specified message.
+             * Construct a new instance of the assertion passed error using the specified message.
              *
              * @param message The details of the assertion.
              */
@@ -47,42 +47,42 @@ namespace assert {
     };
 
     /**
-     * @brief Immediately fails the assertion.
+     * Immediately fails the assertion.
      *
      * @param message An optional message for the details of the failure.
      */
     void fail(const std::string &message = "");
 
     /**
-     * @brief Immediately passes the assertion.
+     * Immediately passes the assertion.
      *
      * @param message An optional message for the details of the success.
      */
     void pass(const std::string &message = "");
 
     /**
-     * @brief Displays a message.
+     * Displays a message.
      * 
      * @param message The message to display.
      */
     void message(const std::string &message);
 
     /**
-     * @brief Asserts that the condition is true.
+     * Asserts that the condition is true.
      *
      * @param condition The condition to check.
      */
     void is_true(const bool &condition);
 
     /**
-     * @brief Asserts that the condition is false.
+     * Asserts that the condition is false.
      *
      * @param condition The condition to check.
      */
     void is_false(const bool &condition);
 
     /**
-     * @brief Asserts that a value is equal to another value.
+     * Asserts that a value is equal to another value.
      *
      * @tparam T The type of the first value.
      * @tparam U The type of the second value.
@@ -97,7 +97,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that a value is not equal to another value.
+     * Asserts that a value is not equal to another value.
      *
      * @tparam T The type of the first value.
      * @tparam U The type of the second value.
@@ -112,7 +112,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that a value is the same instance as another value.
+     * Asserts that a value is the same instance as another value.
      *
      * @tparam T The type of the values.
      * @param value1 The first value.
@@ -126,7 +126,7 @@ namespace assert {
     }
 
     /**
-     * @brief Asserts that a value is not the same instance as another value.
+     * Asserts that a value is not the same instance as another value.
      *
      * @tparam T The type of the values.
      * @param value1 The first value.
