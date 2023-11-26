@@ -1,10 +1,10 @@
 #ifndef __YATF_TEST_RUNNER_H__
 #define __YATF_TEST_RUNNER_H__
 
-#include <vector>
+#include <string>
 
+#include "test.h"
 #include "test_reporter.h"
-#include "assertions/assertions.h"
 
 namespace yatf {
     /**
@@ -41,7 +41,7 @@ namespace yatf {
             /**
              * Lists all registered test cases.
              */
-            static void list_all_tests();
+            void list_all_tests() const;
 
         private:
             /**

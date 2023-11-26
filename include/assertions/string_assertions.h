@@ -1,6 +1,8 @@
 #ifndef __YATF_STRING_ASSERTIONS_H__
 #define __YATF_STRING_ASSERTIONS_H__
 
+#include <string>
+
 #include "basic_assertions.h"
 
 namespace assert {

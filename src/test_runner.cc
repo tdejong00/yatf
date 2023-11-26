@@ -1,8 +1,9 @@
-#include <iostream>
-#include <cstring>
+#include <string>
 #include <chrono>
 
 #include "test_runner.h"
+#include "test_registry.h"
+#include "assertions/basic_assertions.h"
 
 namespace yatf {
     /**
@@ -34,12 +35,11 @@ namespace yatf {
         }
     }
 
-    void test_runner::list_all_tests()
-    {
+    void test_runner::list_all_tests() const {
         for (const test_suite &test_suite : test_registry::get_test_suites()) {
-            test_reporter::list(test_suite);
+            reporter.list(test_suite);
             for (const test_case &test_case : test_suite.test_cases) {
-                test_reporter::list(test_case);
+                reporter.list(test_case);
             }
         }
     }
@@ -70,20 +70,20 @@ namespace yatf {
         catch (const assert::assertion_failed &e) {
             statistics.failed_count++;
             statistics.total_count++;
-            reporter.report_test_case(test_case, FAILED, elapsed_time(time_point), e.what());
+            reporter.report_test_case(test_case, test_result::FAILED, elapsed_time(time_point), e.what());
             return;
         }
         /* Unexpected exception */
         catch (...) {
             statistics.failed_count++;
             statistics.total_count++;
-            reporter.report_test_case(test_case, FAILED, elapsed_time(time_point), "unexpected exception caught");
+            reporter.report_test_case(test_case, test_result::FAILED, elapsed_time(time_point), "unexpected exception caught");
             return;
         }
 
         /* Assertion passed */
         statistics.passed_count++;
         statistics.total_count++;
-        reporter.report_test_case(test_case, PASSED, elapsed_time(time_point));
+        reporter.report_test_case(test_case, test_result::PASSED, elapsed_time(time_point));
     }
 }

@@ -1,8 +1,8 @@
 #ifndef __YATF_BASIC_ASSERTIONS_H__
 #define __YATF_BASIC_ASSERTIONS_H__
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
 #include "type_traits.h"
 

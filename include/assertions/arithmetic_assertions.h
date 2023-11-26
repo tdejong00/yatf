@@ -2,6 +2,7 @@
 #define __YATF_ARITHMETIC_ASSERTIONS_H__
 
 #include "basic_assertions.h"
+#include "type_traits.h"
 
 namespace assert {
     /**

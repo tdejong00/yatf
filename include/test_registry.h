@@ -2,54 +2,18 @@
 #define __YATF_TEST_REGISTRY_H__
 
 #include <string>
-#include <functional>
-#include <ostream>
 #include <vector>
 
+#include "test.h"
+
 namespace yatf {
-    /**
-     * A test case within a test suite. Consists of a human-readable 
-     * name and a function pointer to the actual test code.
-     */
-    struct test_case {
-        const std::string name; /* Name of the test case. */
-        const std::string file_name; /* Name of the file where the test is located. */
-        int lineno; /* Number of the line where the test is located. */
-        std::function<void()> function; /* Function pointer to the test case function. */
-
-        /**
-         * Streams a test case to an output stream.
-         * 
-         * @param stream The output stream to stream to.
-         * @param test_case The test case to stream.
-         * @return A reference to the output stream after streaming the test case.
-         */
-        friend std::ostream &operator<<(std::ostream &stream, const test_case &test_case);
-    };
-    
-    /**
-     * A container for grouping multiple test cases. Consists 
-     * of a human-readable name and a collection of test cases.
-     */
-    struct test_suite {
-        const std::string name; /* Name of the test suite. */
-        std::vector<test_case> test_cases; /* Collection of test cases within the test suite. */
-
-        /**
-         * Streams a test suite to an output stream.
-         * 
-         * @param stream The output stream to stream to.
-         * @param test_suite The test suite to stream.
-         * @return A reference to the output stream after streaming the test suite.
-         */
-        friend std::ostream &operator<<(std::ostream &stream, const test_suite &test_suite);
-    };
-
     /**
      * Manages and stores test cases for the testing framework.
      */
     class test_registry {
         public:
+            test_registry() = delete;
+
             /**
              * Retrieves all registered test suites.
              * 

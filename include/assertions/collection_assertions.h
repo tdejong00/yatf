@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "basic_assertions.h"
+#include "type_traits.h"
 
 namespace assert {
     /**

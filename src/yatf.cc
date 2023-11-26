@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     }
     /* List all registered test cases */
     else if (show_list) {
-        yatf::test_runner::list_all_tests();
+        runner.list_all_tests();
     }
     /* No test file(s) given, run all registered tests */
     else if (optind == argc) {
